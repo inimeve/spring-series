@@ -1,23 +1,21 @@
 package com.example.accessingdatamongodb;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
-
-
-public class Customer {
+@Document(collection="customer")
+public class CustomerEntity {
 
     @Id
     public String id;
 
     public String firstName;
     public String lastName;
-    public String xmlValue;
-    public List<Item> items;
+    public String xml;
 
-    public Customer() {}
+    public CustomerEntity() {}
 
-    public Customer(String firstName, String lastName) {
+    public CustomerEntity(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -46,26 +44,18 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public String getXml() {
+        return xml;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
-    public String getXmlValue() {
-        return xmlValue;
-    }
-
-    public void setXmlValue(String xmlValue) {
-        this.xmlValue = xmlValue;
+    public void setXml(String xml) {
+        this.xml = xml;
     }
 
     @Override
     public String toString() {
         return String.format(
-                "Customer[id=%s, firstName='%s', lastName='%s']",
+                "CustomerEntity[id=%s, firstName='%s', lastName='%s']",
                 id, firstName, lastName);
     }
 

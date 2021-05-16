@@ -19,6 +19,6 @@ public class CustomerController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     List<Customer> findAllCustomers() {
-        return this.customerRepository.findAll();
+        return CustomerMapper.from(this.customerRepository.findAll());
     }
 }
