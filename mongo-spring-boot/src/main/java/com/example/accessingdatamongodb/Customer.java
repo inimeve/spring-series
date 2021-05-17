@@ -12,7 +12,6 @@ public class Customer {
 
     public String firstName;
     public String lastName;
-    public String xmlValue;
     public List<Item> items;
 
     public Customer() {}
@@ -52,14 +51,6 @@ public class Customer {
 
     public void setItems(List<Item> items) {
         this.items = items;
-    }
-
-    public String getXmlValue() {
-        return xmlValue;
-    }
-
-    public void setXmlValue(String xmlValue) {
-        this.xmlValue = xmlValue;
     }
 
     @Override

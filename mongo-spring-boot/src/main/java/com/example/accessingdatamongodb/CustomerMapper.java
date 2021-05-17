@@ -7,7 +7,6 @@ public class CustomerMapper {
 
     public static Customer from(CustomerEntity customerEntity) {
         Customer customer = new Customer(customerEntity.getFirstName(), customerEntity.getLastName());
-        customer.setXmlValue(customerEntity.getXml());
 
         return customer;
     }
