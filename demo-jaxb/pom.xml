@@ -29,6 +29,7 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- JAXB Dependencies -->
         <dependency>
             <groupId>com.sun.activation</groupId>
             <artifactId>javax.activation</artifactId>
@@ -38,7 +39,6 @@
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
-<!--             <version>${jaxb.api.version}</version> -->
         </dependency>
  
         <dependency>
@@ -53,6 +53,7 @@
             <version>${jaxb.api.version}</version>
         </dependency>
 
+		<!-- Testing Dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -66,6 +67,27 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
+			<!-- JAXB Plugin -->
+<!-- 	        <plugin> -->
+<!-- 	            <groupId>org.codehaus.mojo</groupId> -->
+<!-- 	            <artifactId>jaxb2-maven-plugin</artifactId> -->
+<!-- 	            <version>2.5.0</version> -->
+<!-- 	            <executions> -->
+<!-- 	                <execution> -->
+<!-- 	                    <id>xsd-to-java</id> -->
+<!-- 	                    <goals> -->
+<!-- 	                        <goal>xjc</goal> -->
+<!-- 	                    </goals> -->
+<!-- 	                </execution> -->
+<!-- 	            </executions> -->
+<!-- 	            <configuration> -->
+<!-- 		            <sources> -->
+<!-- 	                    <source>src/main/resources/xsd</source> -->
+<!-- 	                </sources> -->
+<!-- 	                <packageName>com.example.demojaxb.jaxb</packageName> -->
+<!-- 	            </configuration> -->
+<!-- 	        </plugin> -->
 		</plugins>
 	</build>
 

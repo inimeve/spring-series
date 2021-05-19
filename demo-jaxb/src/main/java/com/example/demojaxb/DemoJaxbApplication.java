@@ -1,11 +1,11 @@
 package com.example.demojaxb;
 
 import java.io.StringReader;
-import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.springframework.boot.CommandLineRunner;
@@ -22,27 +22,45 @@ public class DemoJaxbApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		try {
-			// Create marshaller
-			JAXBContext jaxbContext = JAXBContext.newInstance(Fruit.class);
-			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-
-			Fruit o = new Fruit();
-			o.setId(1);
-			o.setName("Banana");
-			o.setPrice("9.99");
-
-            StringWriter sw = new StringWriter();
-            jaxbMarshaller.marshal(o, sw);
-            String xmlContent = sw.toString();
-            System.out.println( xmlContent );
+			Thread.sleep(3000);
 			
-			// Create unmarshaller
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			// Get XML
+            String xmlEntityString = Files.readString(Paths.get("src/main/resources/sample-xmls/fruit.xml"));
             
-            Fruit fruit = (Fruit) jaxbUnmarshaller.unmarshal(new StringReader(xmlContent));
-            System.out.println(fruit);
-
+            // Parse once            
+            long startTime = System.nanoTime();
+            FruitParser.parseFruitXML(xmlEntityString);
+            long stopTime = System.nanoTime();
+            System.out.println("Parse once -> " + (Math.floor((double) (stopTime - startTime)/1_000_000) + " ms"));
+            
+            
+            // Parse 10
+            startTime = System.nanoTime();
+            for (int i = 0; i < 1000; i++) {
+            	FruitParser.parseFruitXML(xmlEntityString);
+            }
+            stopTime = System.nanoTime();
+            System.out.println("Parse 1000 -> " +  (Math.floor((double) (stopTime - startTime)/1_000_000) + " ms"));
+            
+            
+            // With one JAXB instance
+    		JAXBContext jaxbContext = JAXBContext.newInstance(Fruit.class);
+    		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+    		
+            startTime = System.nanoTime();
+            for (int i = 0; i < 1000; i++) {
+            	jaxbUnmarshaller.unmarshal(new StringReader(xmlEntityString));
+            }
+            stopTime = System.nanoTime();
+            System.out.println("Parse 1000 with on JAXB instance -> " +  (Math.floor((double) (stopTime - startTime)/1_000_000) + " ms"));
+            
+            startTime = System.nanoTime();
+            for (int i = 0; i < 100000; i++) {
+            	jaxbUnmarshaller.unmarshal(new StringReader(xmlEntityString));
+            }
+            stopTime = System.nanoTime();
+            System.out.println("Parse 1000000 with on JAXB instance -> " +  (Math.floor((double) (stopTime - startTime)/1_000_000) + " ms"));
+            
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
