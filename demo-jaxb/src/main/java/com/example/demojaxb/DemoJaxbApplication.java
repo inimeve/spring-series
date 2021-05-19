@@ -42,8 +42,6 @@ public class DemoJaxbApplication implements CommandLineRunner {
             
             Fruit fruit = (Fruit) jaxbUnmarshaller.unmarshal(new StringReader(xmlContent));
             System.out.println(fruit);
-			
-			
 
 		} catch (JAXBException e) {
 			e.printStackTrace();
