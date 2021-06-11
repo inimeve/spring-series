@@ -1,3 +1,3 @@
 FROM mongo:latest
 
-COPY demo-data /demo-data
+# COPY demo-data /demo-data

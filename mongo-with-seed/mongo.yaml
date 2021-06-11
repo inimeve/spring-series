@@ -16,14 +16,22 @@ spec:
         db: mongo-demo
     spec:
       containers:
-      - image: mongo-with-demo-data
+      - image: mongo:latest
         name: mongo
         ports:
         - containerPort: 27017
         volumeMounts:
-        - name: mongo-initdb
+        # - name: mongo-seed
+        #   mountPath: /demo-data
+        - name: mongo-seed
           mountPath: /docker-entrypoint-initdb.d
       volumes:
-      - name: mongo-initdb
+      - name: mongo-seed
         configMap:
-          name: mongo-initdb
+          name: mongo-seed
+      # - name: mongo-initdb
+      #   configMap:
+      #     name: mongo-initdb
+      # - name: mongo-seed
+      #   configMap:
+      #     name: mongo-seed
